@@ -1,0 +1,29 @@
+{
+  "name": "kirana-expiry-web",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000k\u0000i\u0000r\u0000a\u0000n\u0000a\u0000-\u0000e\u0000x\u0000p\u0000i\u0000r\u0000y\u0000-\u0000a\u0000p\u0000p\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tushardutta109/kirana-expiry-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tushardutta109/kirana-expiry-app/issues"
+  },
+  "homepage": "https://github.com/tushardutta109/kirana-expiry-app#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.3",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^10.0.13"
+  }
+}
