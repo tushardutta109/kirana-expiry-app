@@ -2,285 +2,270 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kirana Expiry Manager</title>
-  <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-    body { background-color: #f1f5f9; padding: 30px; color: #1e293b; }
-    .container { max-width: 1050px; margin: auto; }
-    
-    h1 { margin-bottom: 25px; color: #0f172a; display: flex; align-items: center; gap: 10px; font-size: 26px; }
-    
-    /* Stats Cards Grid */
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
-    .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07); border-left: 6px solid #94a3b8; }
-    .stat-card.total { border-left-color: #3b82f6; }
-    .stat-card.warning { border-left-color: #f59e0b; }
-    .stat-card.danger { border-left-color: #ef4444; }
-    .stat-title { font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 8px; }
-    .stat-value { font-size: 28px; font-weight: 700; color: #0f172a; }
-
-    /* Form Card */
-    .card { background: white; padding: 22px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07); margin-bottom: 25px; }
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 18px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #475569; }
-    .form-group input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; outline: none; }
-    .form-group input:focus { border-color: #2563eb; }
-    
-    .btn-submit { background-color: #2563eb; color: white; border: none; padding: 11px 22px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .btn-submit:hover { background-color: #1d4ed8; }
-
-    /* Search & Filter Bar */
-    .controls-bar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; align-items: center; justify-content: space-between; }
-    .search-input { flex: 1; min-width: 250px; padding: 11px 16px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; background: white; }
-    .search-input:focus { border-color: #2563eb; }
-    .filter-buttons { display: flex; gap: 8px; }
-    .filter-btn { padding: 9px 15px; border: 1px solid #cbd5e1; background: white; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; color: #475569; transition: 0.2s; }
-    .filter-btn.active, .filter-btn:hover { background-color: #0f172a; color: white; border-color: #0f172a; }
-
-    /* Table Styling */
-    table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07); }
-    th, td { padding: 14px 18px; text-align: left; font-size: 14px; }
-    th { background-color: #0f172a; color: white; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
-    tr:nth-child(even) { background-color: #f8fafc; }
-    tr:hover { background-color: #f1f5f9; }
-
-    /* Expiry Badges */
-    .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; text-align: center; }
-    .badge-safe { background-color: #dcfce7; color: #15803d; }
-    .badge-warning { background-color: #fef3c7; color: #b45309; }
-    .badge-danger { background-color: #fee2e2; color: #b91c1c; }
-
-    tr.row-danger { background-color: #fff1f2 !important; }
-    tr.row-warning { background-color: #fffbeb !important; }
-
-    /* Action Buttons */
-    .btn-action { padding: 6px 12px; border: none; border-radius: 5px; font-size: 12px; cursor: pointer; font-weight: 600; margin-right: 6px; }
-    .btn-edit { background-color: #e2e8f0; color: #334155; }
-    .btn-delete { background-color: #fee2e2; color: #ef4444; }
-    .btn-edit:hover { background-color: #cbd5e1; }
-    .btn-delete:hover { background-color: #fca5a5; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kirana Expiry Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
-<body>
+<body class="bg-slate-50 min-h-screen text-slate-800">
 
-  <div class="container">
-    <h1>🛒 Kirana Expiry & Stock Manager</h1>
+  <!-- Top Navbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="bg-indigo-600 text-white p-2.5 rounded-xl shadow-sm">
+          <i class="fa-solid fa-shop text-lg"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-tight">Kirana Expiry Tracker</h1>
+          <p class="text-xs text-slate-500">Inventory Management & Expiry Alerts</p>
+        </div>
+      </div>
+      <button onclick="document.getElementById('addItemModal').classList.remove('hidden')" 
+              class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow-sm">
+        <i class="fa-solid fa-plus"></i> Add Item
+      </button>
+    </div>
+  </header>
 
-    <!-- 1. Real-time Summary Cards -->
-    <div class="stats-grid">
-      <div class="stat-card total">
-        <div class="stat-title">Total Products</div>
-        <div class="stat-value" id="totalCount">0</div>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Items</p>
+          <h3 id="statTotal" class="text-2xl font-extrabold mt-1 text-slate-900">0</h3>
+        </div>
+        <div class="bg-indigo-50 text-indigo-600 p-3 rounded-xl"><i class="fa-solid fa-boxes-stacked text-xl"></i></div>
       </div>
-      <div class="stat-card warning">
-        <div class="stat-title">Expiring in 7 Days</div>
-        <div class="stat-value" id="warningCount" style="color: #d97706;">0</div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Expiring Soon (3 Days)</p>
+          <h3 id="statExpiring" class="text-2xl font-extrabold mt-1 text-amber-600">0</h3>
+        </div>
+        <div class="bg-amber-50 text-amber-600 p-3 rounded-xl"><i class="fa-solid fa-clock-rotate-left text-xl"></i></div>
       </div>
-      <div class="stat-card danger">
-        <div class="stat-title">Expired Items</div>
-        <div class="stat-value" id="dangerCount" style="color: #dc2626;">0</div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-rose-600 uppercase tracking-wider">Expired Items</p>
+          <h3 id="statExpired" class="text-2xl font-extrabold mt-1 text-rose-600">0</h3>
+        </div>
+        <div class="bg-rose-50 text-rose-600 p-3 rounded-xl"><i class="fa-solid fa-triangle-exclamation text-xl"></i></div>
       </div>
     </div>
 
-    <!-- 2. Add New Item Form -->
-    <div class="card">
-      <h3 style="margin-bottom: 15px; color: #334155;">Naya Stock Add Karein</h3>
-      <form id="itemForm">
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Item Name</label>
-            <input type="text" id="name" placeholder="e.g. Amul Butter" required />
+    <!-- Search & Filters -->
+    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-6 flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div class="relative w-full sm:w-80">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+        <input type="text" id="searchInput" oninput="filterItems()" placeholder="Search item name..." 
+               class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </div>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <select id="categoryFilter" onchange="filterItems()" class="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto">
+          <option value="">All Categories</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Snacks">Snacks</option>
+          <option value="Grains">Grains & Pulses</option>
+          <option value="Beverages">Beverages</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Inventory Table -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-50 text-slate-500 uppercase text-xs border-b border-slate-200">
+            <tr>
+              <th class="px-6 py-4 font-semibold">Item Name</th>
+              <th class="px-6 py-4 font-semibold">Category</th>
+              <th class="px-6 py-4 font-semibold">Quantity</th>
+              <th class="px-6 py-4 font-semibold">Expiry Date</th>
+              <th class="px-6 py-4 font-semibold">Status</th>
+              <th class="px-6 py-4 font-semibold text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryBody" class="divide-y divide-slate-100 font-medium">
+            <tr>
+              <td colspan="6" class="px-6 py-8 text-center text-slate-400">Loading inventory...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Item Modal -->
+  <div id="addItemModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
+      <div class="flex items-center justify-between mb-4 border-b pb-3">
+        <h3 class="text-lg font-bold text-slate-900">Add New Inventory Item</h3>
+        <button onclick="document.getElementById('addItemModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      
+      <form id="itemForm" onsubmit="handleAddItem(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Item Name *</label>
+          <input type="text" id="name" required placeholder="e.g., Amul Milk 500ml" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Category</label>
+            <select id="category" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+              <option value="Dairy">Dairy</option>
+              <option value="Snacks">Snacks</option>
+              <option value="Grains">Grains & Pulses</option>
+              <option value="Beverages">Beverages</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
-          <div class="form-group">
-            <label>Quantity</label>
-            <input type="number" id="quantity" placeholder="e.g. 15" required />
-          </div>
-          <div class="form-group">
-            <label>Category</label>
-            <input type="text" id="category" placeholder="e.g. Dairy / Bakery" required />
-          </div>
-          <div class="form-group">
-            <label>Expiry Date</label>
-            <input type="date" id="expiryDate" required />
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Quantity *</label>
+            <input type="number" id="quantity" min="1" required value="1" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
           </div>
         </div>
-        <button type="submit" class="btn-submit">+ Item Save Karein</button>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Expiry Date *</label>
+          <input type="date" id="expiryDate" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+        </div>
+        
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="document.getElementById('addItemModal').classList.add('hidden')" class="px-4 py-2 border rounded-lg text-sm text-slate-600 hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium shadow-sm">Save Item</button>
+        </div>
       </form>
     </div>
-
-    <!-- 3. Search and Quick Filter Controls -->
-    <div class="controls-bar">
-      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search item name ya category se dhoondein..." oninput="filterAndRenderItems()" />
-      <div class="filter-buttons">
-        <button class="filter-btn active" id="filterAll" onclick="setFilter('all')">All</button>
-        <button class="filter-btn" id="filterWarning" onclick="setFilter('warning')">Expiring Soon</button>
-        <button class="filter-btn" id="filterDanger" onclick="setFilter('danger')">Expired</button>
-      </div>
-    </div>
-
-    <!-- 4. Inventory Table -->
-    <table>
-      <thead>
-        <tr>
-          <th>Item Name</th>
-          <th>Category</th>
-          <th>Quantity</th>
-          <th>Expiry Date</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="itemsTableBody">
-        <!-- Live Filtered Data -->
-      </tbody>
-    </table>
   </div>
 
   <script>
-    const API_URL = 'http://localhost:5001/api/items';
-    let allItemsData = [];
-    let currentFilter = 'all';
+    let allItems = [];
 
-    function getExpiryStatus(expiryDateStr) {
-      if (!expiryDateStr) return { label: 'No Date', badgeClass: 'badge-safe', rowClass: '', type: 'safe' };
+    async function fetchItems() {
+      try {
+        const res = await fetch('/api/items');
+        allItems = await res.json();
+        renderTable(allItems);
+        updateStats(allItems);
+      } catch (err) {
+        console.error('Fetch error:', err);
+      }
+    }
 
+    function calculateStatus(expiryDate) {
       const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      today.setHours(0,0,0,0);
+      const exp = new Date(expiryDate);
+      exp.setHours(0,0,0,0);
 
-      const expDate = new Date(expiryDateStr);
-      expDate.setHours(0, 0, 0, 0);
-
-      const diffTime = expDate - today;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
 
       if (diffDays < 0) {
-        return { label: 'Expired', badgeClass: 'badge-danger', rowClass: 'row-danger', type: 'danger' };
-      } else if (diffDays <= 7) {
-        return { label: `${diffDays} Din Bache`, badgeClass: 'badge-warning', rowClass: 'row-warning', type: 'warning' };
-      } else {
-        return { label: 'Safe', badgeClass: 'badge-safe', rowClass: '', type: 'safe' };
+        return { label: 'Expired', badgeClass: 'bg-rose-50 text-rose-700 border-rose-200' };
+      } else if (diffDays <= 3) {
+        return { label: `Expiring (${diffDays}d)`, badgeClass: 'bg-amber-50 text-amber-700 border-amber-200' };
       }
+      return { label: 'Safe', badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
     }
 
-    async function loadItems() {
-      try {
-        const res = await fetch(API_URL);
-        allItemsData = await res.json();
-        
-        let warningCount = 0;
-        let dangerCount = 0;
-
-        allItemsData.forEach(item => {
-          const status = getExpiryStatus(item.expiryDate);
-          if (status.type === 'danger') dangerCount++;
-          if (status.type === 'warning') warningCount++;
-        });
-
-        document.getElementById('totalCount').innerText = allItemsData.length;
-        document.getElementById('warningCount').innerText = warningCount;
-        document.getElementById('dangerCount').innerText = dangerCount;
-
-        filterAndRenderItems();
-      } catch (err) {
-        console.error('Error fetching items:', err);
-      }
-    }
-
-    function setFilter(type) {
-      currentFilter = type;
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      if (type === 'all') document.getElementById('filterAll').classList.add('active');
-      if (type === 'warning') document.getElementById('filterWarning').classList.add('active');
-      if (type === 'danger') document.getElementById('filterDanger').classList.add('active');
-      filterAndRenderItems();
-    }
-
-    function filterAndRenderItems() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const tbody = document.getElementById('itemsTableBody');
-      tbody.innerHTML = '';
-
-      const filtered = allItemsData.filter(item => {
-        const status = getExpiryStatus(item.expiryDate);
-        const nameMatch = item.name.toLowerCase().includes(searchTerm);
-        const categoryMatch = (item.category || '').toLowerCase().includes(searchTerm);
-        const searchPass = nameMatch || categoryMatch;
-
-        if (!searchPass) return false;
-        if (currentFilter === 'warning') return status.type === 'warning';
-        if (currentFilter === 'danger') return status.type === 'danger';
-        return true;
-      });
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #888; padding: 20px;">Koi matching item nahi mila!</td></tr>';
+    function renderTable(items) {
+      const tbody = document.getElementById('inventoryBody');
+      if (!items.length) {
+        tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-slate-400">No items found.</td></tr>`;
         return;
       }
 
-      filtered.forEach(item => {
-        const status = getExpiryStatus(item.expiryDate);
-        const dateFormatted = item.expiryDate 
-          ? new Date(item.expiryDate).toLocaleDateString('en-GB') 
-          : 'N/A';
+      tbody.innerHTML = items.map(item => {
+        const status = calculateStatus(item.expiryDate);
+        const expDate = new Date(item.expiryDate).toLocaleDateString('en-GB');
 
-        tbody.innerHTML += `
-          <tr class="${status.rowClass}">
-            <td><strong>${item.name}</strong></td>
-            <td>${item.category || '-'}</td>
-            <td><strong>${item.quantity}</strong></td>
-            <td>${dateFormatted}</td>
-            <td><span class="badge ${status.badgeClass}">${status.label}</span></td>
-            <td>
-              <button class="btn-action btn-edit" onclick="updateQuantity('${item._id}', ${item.quantity})">Qty Update</button>
-              <button class="btn-action btn-delete" onclick="deleteItem('${item._id}')">Delete</button>
+        return `
+          <tr class="hover:bg-slate-50/75 transition">
+            <td class="px-6 py-4 font-semibold text-slate-900">${item.name}</td>
+            <td class="px-6 py-4 text-slate-600">${item.category || '-'}</td>
+            <td class="px-6 py-4 text-slate-600">${item.quantity}</td>
+            <td class="px-6 py-4 text-slate-600">${expDate}</td>
+            <td class="px-6 py-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${status.badgeClass}">
+                ${status.label}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <button onclick="deleteItem('${item._id}')" class="text-slate-400 hover:text-rose-600 transition p-1">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
             </td>
           </tr>
         `;
-      });
+      }).join('');
     }
 
-    document.getElementById('itemForm').addEventListener('submit', async (e) => {
+    function updateStats(items) {
+      let expired = 0, expiring = 0;
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      items.forEach(item => {
+        const exp = new Date(item.expiryDate);
+        exp.setHours(0,0,0,0);
+        const diffDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
+        if (diffDays < 0) expired++;
+        else if (diffDays <= 3) expiring++;
+      });
+
+      document.getElementById('statTotal').innerText = items.length;
+      document.getElementById('statExpiring').innerText = expiring;
+      document.getElementById('statExpired').innerText = expired;
+    }
+
+    function filterItems() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const category = document.getElementById('categoryFilter').value;
+
+      const filtered = allItems.filter(item => {
+        const matchesSearch = item.name.toLowerCase().includes(search);
+        const matchesCat = category ? item.category === category : true;
+        return matchesSearch && matchesCat;
+      });
+
+      renderTable(filtered);
+    }
+
+    async function handleAddItem(e) {
       e.preventDefault();
-      const newItem = {
+      const payload = {
         name: document.getElementById('name').value,
-        quantity: Number(document.getElementById('quantity').value),
         category: document.getElementById('category').value,
+        quantity: Number(document.getElementById('quantity').value),
         expiryDate: document.getElementById('expiryDate').value
       };
 
-      await fetch(API_URL, {
+      await fetch('/api/items', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newItem)
+        body: JSON.stringify(payload)
       });
 
+      document.getElementById('addItemModal').classList.add('hidden');
       document.getElementById('itemForm').reset();
-      loadItems();
-    });
-
-    async function updateQuantity(id, currentQty) {
-      const newQty = prompt("Nayi Quantity enter karein:", currentQty);
-      if (newQty !== null && newQty !== "") {
-        await fetch(`${API_URL}/${id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ quantity: Number(newQty) })
-        });
-        loadItems();
-      }
+      fetchItems();
     }
 
     async function deleteItem(id) {
-      if (confirm("Kya aap sach me ye item delete karna chahte hain?")) {
-        await fetch(`${API_URL}/${id}`, {
-          method: 'DELETE'
-        });
-        loadItems();
-      }
+      if (!confirm('Are you sure you want to remove this item?')) return;
+      await fetch(`/api/items/${id}`, { method: 'DELETE' });
+      fetchItems();
     }
 
-    loadItems();
+    fetchItems();
   </script>
 </body>
 </html>
